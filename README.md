@@ -47,19 +47,6 @@ git clone https://github.com/gensyn-ai/blockassist.git
 cd blockassist
 ```
 
-### Step 2: Install Dependecies
-```bash
-sudo apt update && \
-sudo apt upgrade -y && \
-sudo apt install -y \
-make git build-essential gcc \
-libssl-dev zlib1g-dev libbz2-dev \
-libreadline-dev libsqlite3-dev curl \
-libncursesw5-dev xz-utils tk-dev \
-libxml2-dev libxmlsec1-dev \
-libffi-dev liblzma-dev zip unzip
-```
-
 ### Step 3: Install Java
 ```bash
 ./setup.sh
@@ -95,45 +82,50 @@ pyenv global 3.10
 pip install --upgrade pip
 pip install -e .
 pip install psutil readchar
-   
+
 corepack enable
 yarn install --frozen-lockfile
 ```
-
-
-
-
+* If got any error in installing `readchar`, I fixed it by adding commands in Running BlockAssist in the next step
 
 
 
 ## Run BlockAssist
 
-Use `ls logs` to list available log files, and `tail -f logs/<name>.log` to monitor progress. 
+### Start Mincraft
+```bash
+python -m venv blockassist-env
+source blockassist-env/bin/activate
+pip install psutil readchar
 
-**Note:** when asked to press `ENTER`, you may need to do so a couple of times.
+python run.py
+```
 
-**Run with Python**
+### Hugging Face Token
+It prompts you to enter a [Hugging Face](https://huggingface.co/) API token. Create an Access Token with `Write` permissions [here](https://huggingface.co/settings/tokens) and save it
 
-* On macOS: `pyenv exec python run.py`
-* On Linux: `python run.py`
+### Gensyn Testnet login
+You will be prompted to login via a browser
+* Open **Web Browser**, visit `http://localhost:3000`, and login to your Gensyn account.
+* If you have previously logged in, this step will be skipped
 
-The program will install additional dependencies as required. Follow any prompts and approve any requests.
-
-**Hugging Face Token**
-
-You will be asked to enter a [Hugging Face](https://huggingface.co) API token. Follow [these instructions](https://huggingface.co/docs/hub/en/security-tokens) to generate one with **Write** access.
-
-
-**Gensyn Testnet login**
-
-You will be prompted to log in through your browser (`http://localhost:3000`). If you have previously logged in, this step will be skipped. Otherwise, use the browser window that opens to log in.
+<img width="1234" height="588" alt="Screenshot_824" src="https://github.com/user-attachments/assets/20d46c20-490d-4646-b56f-182102f99630" />
 
 
-**Play Minecraft**
 
-Once the Minecraft windows have loaded, the Python script will ask you to press `ENTER`.
+## Play Minecraft
+* Wait until two Minecraft windows have opened, then press `ENTER` in terminal.
+* Go to the first Minecraft window that opened (the other will be minimized on macOS).
+* Click the window and press `ENTER` to allow it to capture your inputs. Complete the structure in-game, then return to your terminal and press `ENTER` to end the session.
 
-Go to the first Minecraft window that opened (the other will be minimized on macOS). Click the window and press `ENTER` to allow it to capture your inputs. Complete the structure in-game, then return to your terminal and press `ENTER` to end the session.
+<img width="1754" height="838" alt="Screenshot_825" src="https://github.com/user-attachments/assets/5acf6764-4040-4615-a5e7-5ea4e0b0fe6c" />
+
+
+### Check logs
+If needed, you can check logs by opening a *new* terminal and running this:
+```bash
+blockassist && tail -f logs/malmo.log
+```
 
 
 **Training**
