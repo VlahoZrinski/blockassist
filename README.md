@@ -22,6 +22,18 @@ Steps:
 
 **WSL**: NOT supported for now (Will update this for WSL users)
 
+**Install Ubuntu on Windows via VirtualBox**
+* Download VirtualBox from Oracle website
+* Install VirtualBox on Windows
+* Enable virtualization in BIOS if needed
+* Download Ubuntu Desktop 22.04 LTS ISO file
+* Click on **New** to Create new VM in VirtualBox:
+  * Type: Linux, Ubuntu (64-bit)
+  * RAM: 8GB minimum, 16GB recommended
+  * Storage: 50GB minimum
+  * Enable 3D acceleration in Display settings
+  * Allocate multiple CPU cores
+
 ### Cloud GPUs (Desktop-gui enabled)
 **[Vast](https://cloud.vast.ai/?ref_id=62897&creator_id=62897&name=Linux%20Desktop%20Container)**: Rent a GPU with [Linux Desktop Container](https://cloud.vast.ai/?ref_id=62897&creator_id=62897&name=Linux%20Desktop%20Container) template, then go to *instances* page and wait for your gpu to be deployed.
 
@@ -63,14 +75,7 @@ cd blockassist
 ### Step 3: Install Java
 ```bash
 ./setup.sh
-```
-```
-sudo apt update
-sudo apt install openjdk-8-jdk
-```
-```
-echo 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64' >> ~/.bashrc
-source ~/.bashrc
+exec $SHELL
 ```
 
 ### Step 4: Install `pyenv`
@@ -82,7 +87,6 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 ```
-* Restart your terminal and `cd blockassist` again.
 
 ### Step 5: Install Python 3.10
 
@@ -100,9 +104,8 @@ pip install psutil readchar
 corepack enable
 yarn install --frozen-lockfile
 ```
-* If got any error in installing `readchar`, I fixed it by adding commands in Running BlockAssist in the next step
 
-
+---
 
 ## Run BlockAssist
 
