@@ -18,14 +18,26 @@ Steps:
 
 ## Hardware Requirements
 ### Local systems
-**Linux or Mac**: This guide is for **Linux** users, **Mac** users follow [official guide](https://github.com/gensyn-ai/blockassist/tree/main))
+**Linux or Mac**: This guide is for **Linux** users, **Mac** users check [official guide](https://github.com/gensyn-ai/blockassist/tree/main) for Mac commands)
 
-**WSL**: NOT supported
+**WSL**: NOT supported for now (Will update this for WSL users)
 
-### Cloud GPUs
-**[Vast](https://cloud.vast.ai/?ref_id=62897&creator_id=62897&name=Linux%20Desktop%20Container)**: Rent a GPU with [Linux Desktop Container](https://cloud.vast.ai/?ref_id=62897&creator_id=62897&name=Linux%20Desktop%20Container) template
+### Cloud GPUs (Desktop-gui enabled)
+**[Vast](https://cloud.vast.ai/?ref_id=62897&creator_id=62897&name=Linux%20Desktop%20Container)**: Rent a GPU with [Linux Desktop Container](https://cloud.vast.ai/?ref_id=62897&creator_id=62897&name=Linux%20Desktop%20Container) template, then go to *instances* page and wait for your gpu to be deployed.
 
-password: `echo $OPEN_BUTTON_TOKEN`
+**To open your gpu desktop, you have two options:**
+* Vast preserved desktops (Recommended):
+  * Click on **Open** (Blue button) to head to the gpu dashboard
+  * Access to the desktop via **Selkies Low Latency Desktop** or **Apache Guacamole Desktop (VNC)**
+
+* Local VNC client:
+  * Click on **Open** (Blue button) to head to the gpu dashboard
+  * Access to the terminal via **Jupyter Terminal**
+  * Find your Dekstop password by executing: `echo $OPEN_BUTTON_TOKEN`
+  * In instances page, click on gpu IP and find the mapped host:port to `5900/tcp`, for example it can be: `70.45.225.15:18483`
+  * Install [RealVNC](https://www.realvnc.com/en/connect/download/viewer/)
+  * Enter the mapped host:port and then your password to access to your desktop.
+  * To install a Chrome browser on it, visit [VNC (Linux desktop)](https://github.com/0xmoei/Install-VNC-Linux-Desktop/) Full Guide  
 
 
 ## Installation
