@@ -125,38 +125,16 @@ You will be prompted to login via a browser
 ### Training
 A model will be started training now and be submitted to Hugging Face and to Gensyn’s smart contract.
 
-**Review logs**
-
+### Verify
 If you reach this stage in the logging window and can see a transaction in the block explorer, your submission has succeeded.
 
-Logging window:
+A successful training logging:
 
-```
-🎉 SUCCESS! Your BlockAssist session has completed successfully!
-
-// ....
-
-Stats:
-- Episodes recorded: 1
-- Total gameplay time: 2m 46s
-
-// ....
-
-Thank you for contributing to BlockAssist
-```
+<img width="861" height="421" alt="Untitl111ed" src="https://github.com/user-attachments/assets/3327ca8d-4e50-4d0d-b77e-e2a787c09e20" />
 
 
-
-[Block explorer](https://gensyn-testnet.explorer.alchemy.com/address/0xE2070109A0C1e8561274E59F024301a19581d45c?tab=logs):
-
-```
-huggingFaceID
-string
-false
-<HF-username>/blockassist-bc-bellowing_pouncing_horse_1753675374
-```
-
-The program will then end. Please close any Minecraft windows if they remain open.
+### Leaderboard
+Login to [BlockAssist leaderboard](https://dashboard.gensyn.ai) to check your participation points
 
 ### Optional: Check logs
 If needed, you can check logs by opening a *new* terminal and running this:
@@ -164,33 +142,13 @@ If needed, you can check logs by opening a *new* terminal and running this:
 blockassist && tail -f logs/malmo.log
 ```
 
-## Configuration
-
-BlockAssist uses [Hydra](https://github.com/facebookresearch/hydra) for configuration management. You can modify settings in the `config.yaml` file or override them via command-line arguments.
-
+### Configuration
+You can modify settings in the `src/blockassist/config.yaml` file or override them via command-line arguments.
 
 - `episode_count` — Controls the number of episodes. If `episode_count` is greater than 1, a new episode will start each time you press `ENTER` during session recording.
 
 - `num_training_iters` — Controls the number of training iterations across all recorded episodes.
 
 
-## Testing & Contributing
-
-### Linting / Testing
-
-This project relies on Ruff for formatting/linting. To format imports, run:
 
 
-```bash
-ruff check --select I --fix .
-```
-
-## Telemetry
-
-This repository uploads telemetry to Gensyn services. To disable telemetry, export:
-
-```bash
-export DISABLE_TELEMETRY=1
-```
-
-**Note**: If your turn off telemetry, your contributions may not be counted towards the [BlockAssist leaderboard](https://dashboard.gensyn.ai).
