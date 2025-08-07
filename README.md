@@ -25,6 +25,8 @@ Steps:
 ### Cloud GPUs
 **[Vast](https://cloud.vast.ai/?ref_id=62897&creator_id=62897&name=Linux%20Desktop%20Container)**: Rent a GPU with [Linux Desktop Container](https://cloud.vast.ai/?ref_id=62897&creator_id=62897&name=Linux%20Desktop%20Container) template
 
+password: `echo $OPEN_BUTTON_TOKEN`
+
 
 ## Installation
 
@@ -94,10 +96,6 @@ yarn install --frozen-lockfile
 
 ### Start Mincraft
 ```bash
-python -m venv blockassist-env
-source blockassist-env/bin/activate
-pip install psutil readchar
-
 cd blockassist
 python run.py
 ```
@@ -113,25 +111,19 @@ You will be prompted to login via a browser
 <img width="1234" height="588" alt="Screenshot_824" src="https://github.com/user-attachments/assets/20d46c20-490d-4646-b56f-182102f99630" />
 
 
-
-## Play Minecraft
-* Wait until two Minecraft windows have opened, then press `ENTER` in terminal.
-* Go to the first Minecraft window that opened (the other will be minimized on macOS).
-* Click the window and press `ENTER` to allow it to capture your inputs. Complete the structure in-game, then return to your terminal and press `ENTER` to end the session.
+### Play Minecraft
+* Wait until two Minecraft windows have opened
+* Press `ENTER` in terminal.
+* Go to the first Minecraft window, the game will start.
+* **Note for VNC users**: To enable in-game keys, Press `ENTER` inside the game window.
+* Build the building to increase your progress. (More progress = Better trained AI).
+* Then return to your terminal and press `ENTER` to end the session.
 
 <img width="1754" height="838" alt="Screenshot_825" src="https://github.com/user-attachments/assets/5acf6764-4040-4615-a5e7-5ea4e0b0fe6c" />
 
 
-### Check logs
-If needed, you can check logs by opening a *new* terminal and running this:
-```bash
-blockassist && tail -f logs/malmo.log
-```
-
-
-**Training**
-
-A model will now be trained and submitted to Hugging Face and to Gensyn’s smart contract.
+### Training
+A model will be started training now and be submitted to Hugging Face and to Gensyn’s smart contract.
 
 **Review logs**
 
@@ -140,8 +132,20 @@ If you reach this stage in the logging window and can see a transaction in the b
 Logging window:
 
 ```
-[2025-07-28 05:03:48,955][blockassist.globals][INFO] - Successfully uploaded model to HuggingFace: h-grieve/blockassist-bc-bellowing_pouncing_horse_1753675374 with size 20.00 MB
+🎉 SUCCESS! Your BlockAssist session has completed successfully!
+
+// ....
+
+Stats:
+- Episodes recorded: 1
+- Total gameplay time: 2m 46s
+
+// ....
+
+Thank you for contributing to BlockAssist
 ```
+
+
 
 [Block explorer](https://gensyn-testnet.explorer.alchemy.com/address/0xE2070109A0C1e8561274E59F024301a19581d45c?tab=logs):
 
@@ -154,6 +158,11 @@ false
 
 The program will then end. Please close any Minecraft windows if they remain open.
 
+### Optional: Check logs
+If needed, you can check logs by opening a *new* terminal and running this:
+```bash
+blockassist && tail -f logs/malmo.log
+```
 
 ## Configuration
 
