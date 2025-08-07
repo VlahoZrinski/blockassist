@@ -59,18 +59,19 @@ sudo apt install openjdk-8-jdk
 ```
 ```
 echo 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64' >> ~/.bashrc
-echo 'export PATH=$PATH:$JAVA_HOME/bin' >> ~/.bashrc
 source ~/.bashrc
 ```
 
 ### Step 4: Install `pyenv`
 ```bash
 curl https://pyenv.run | bash
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
-echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
-echo 'eval "$(pyenv init -)"' >> ~/.bashrc
-source ~/.bashrc
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
 ```
+* Restart your terminal and `cd blockassist` again.
 
 ### Step 5: Install Python 3.10
 
@@ -97,6 +98,12 @@ yarn install --frozen-lockfile
 ### Start Mincraft
 ```bash
 cd blockassist
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+
 python run.py
 ```
 
