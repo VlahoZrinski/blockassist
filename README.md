@@ -98,6 +98,7 @@ python -m venv blockassist-env
 source blockassist-env/bin/activate
 pip install psutil readchar
 
+cd blockassist
 python run.py
 ```
 
