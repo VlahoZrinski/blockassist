@@ -36,12 +36,11 @@ Steps:
   * Find your Dekstop password by executing: `echo $OPEN_BUTTON_TOKEN`
   * In instances page, click on gpu IP and find the mapped host:port to `5900/tcp`, for example it can be: `70.45.225.15:18483`
   * Install [RealVNC](https://www.realvnc.com/en/connect/download/viewer/)
-  * Enter the mapped host:port and then your password to access to your desktop.
+  * Enter the mapped host:port and then it prompts for the password to access to your desktop.
   * To install a Chrome browser on it, visit [VNC (Linux desktop)](https://github.com/0xmoei/Install-VNC-Linux-Desktop/) Full Guide  
 
 
 ## Installation
-
 ### Step 1: Install Dependecies
 ```bash
 sudo apt update && \
