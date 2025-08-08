@@ -1,10 +1,7 @@
 # BlockAssist
 
-<div align="center">
+<img width="680" height="333" alt="image" src="https://github.com/user-attachments/assets/7f42b743-9bcd-4e75-9f09-c81af474bd10" />
 
-<img width="1280" height="640" alt="image" src="https://github.com/user-attachments/assets/453dad02-0cf6-4147-82f9-f968073bb681" />
-
-</div>
 
  **BlockAssist** is an AI bot that learns from you in Minecraft. It starts dumb but gets smarter as you play.
 
