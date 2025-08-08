@@ -58,7 +58,6 @@ Steps:
    * Inside Ubuntu:
     ```
     sudo apt update && sudo apt upgrade -y
-    sudo apt install -y build-essential dkms linux-headers-$(uname -r)
     ```
 
 ### Cloud GPUs (Desktop-gui enabled, VNC Desktop)
