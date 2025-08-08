@@ -29,7 +29,39 @@ Steps:
   * Unattended Instal: Choose a username and password for ubuntu user login
   * Hardware: 8GB minimum, 16GB recommended for RAM, add multiple CPU cores
   * Hard Disk: 100GB minimum
-*
+* Make `your-user` an admin (sudo) user
+  * Power off the VM
+  * Start the VM and hold Right-Shift (or press Esc repeatedly) to show GRUB.
+  * Select “Advanced options for Ubuntu” → choose the entry with “(recovery mode)”.
+  * In the Recovery Menu, choose “root – Drop to root shell”. → Insert a password if prompted.
+  * Remount root as read-write: `mount -o remount,rw /`
+  * Add your user to sudo group and set password (if needed): `adduser morijuana sudo` `passwd morijuana`
+  * Reboot: `reboot`
+  * Log back in as `your-user`, then verify sudo works: `sudo whoami` // should print: `root`
+* Optimize your VM settings:
+  * Poweroff the VM and go to Virtualbox app. → Click on Settings
+  * Display → Video Memory: 128 MB (max)
+  * Display → Enable 3D Acceleration: ON
+  * General → Advanced → Shared Clipboard: Bidirectional
+  * General → Advanced → Drag’n’Drop: Bidirectional
+ * Enable Clipboard:
+   * Install build deps inside Ubuntu:
+    ```
+    sudo apt update
+    sudo apt install -y build-essential dkms linux-headers-$(uname -r)
+    ```
+   * Install Guest Additions: VM menu (Top taskbar of your Ubuntu VM window) → Devices → “Insert Guest Additions CD Image…”
+   * Then run in terminal:
+    ```
+    sudo mkdir -p /mnt/cdrom
+    sudo mount /dev/cdrom /mnt/cdrom
+    cd /mnt/cdrom
+    sudo ./VBoxLinuxAdditions.run
+    sudo reboot
+    ```
+* Verify integration:
+  * Clipboard: copy text in Windows → paste in Ubuntu Terminal. Ctrl+Shift+V or middle-click (paste), Ctrl+Shift+C (copy), or right‑click → Paste.
+  * Resize VM window; display should auto-resize.
 
 ### Cloud GPUs (Desktop-gui enabled, VNC Desktop)
 **Important Note: This method is actually running Minecraft inside a *VNC Desktop* which provides a very slow game. I will update it with better methods very soon**
