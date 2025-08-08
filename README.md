@@ -177,7 +177,10 @@ pyenv global 3.10
 ### Step 8: Install project dependecies
 ```bash
 pip install --upgrade pip
-pip install -e .
+
+pip install -e . --no-cache-dir
+pip install "mbag-gensyn[malmo]" --no-cache-dir
+
 pip install psutil readchar
 ```
 
