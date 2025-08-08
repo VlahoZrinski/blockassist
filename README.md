@@ -31,23 +31,37 @@ Steps:
   * Start the VM and hold Right-Shift (or press Esc repeatedly) to show GRUB.
   * Select “Advanced options for Ubuntu” → choose the entry with “(recovery mode)”.
   * In the Recovery Menu, choose “root – Drop to root shell”. → Insert a password if prompted.
-  * Remount root as read-write: `mount -o remount,rw /`
-  * Add your user to sudo group and set password (if needed): `adduser morijuana sudo` `passwd morijuana`
-  * Reboot: `reboot`
-  * Log back in as `your-user`, then verify sudo works: `sudo whoami` // should print: `root`
+  * Remount root as read-write:
+    ```bash
+    mount -o remount,rw /
+    ```
+  * Add your user to sudo group and set password (replace your-user):
+    ```bash
+    adduser your-user sudo
+    passwd your-user
+    ```
+  * Reboot:
+    ```bash
+    reboot
+    ```
+  * Log back in as `your-user`, then verify sudo works:
+    ```bash
+    sudo whoami    # should print: root
+    ```
 * Optimize your VM settings:
-  * Poweroff the VM and go to Virtualbox app. → Click on Settings
+  * Poweroff the VM and go to Virtualbox app. → Settings
   * Display → Video Memory: 128 MB (max)
-  * Display → Enable 3D Acceleration: ON
+  * Display → Graphics Controller: VBoxSVGA
+  * Display → Enable 3D Acceleration: OFF (keep OFF until system is stable)
   * General → Advanced → Shared Clipboard: Bidirectional
   * General → Advanced → Drag’n’Drop: Bidirectional
- * Enable Clipboard:
-   * Install build deps inside Ubuntu:
+ * Enable Clipboard (install Guest Additions):
+   * Inside Ubuntu:
     ```
     sudo apt update
     sudo apt install -y build-essential dkms linux-headers-$(uname -r)
     ```
-   * Install Guest Additions: VM menu (Top taskbar of your Ubuntu VM window) → Devices → “Insert Guest Additions CD Image…”
+   * VM window top bar → Devices → “Insert Guest Additions CD Image…”
    * Then run in terminal:
     ```
     sudo mkdir -p /mnt/cdrom
@@ -59,10 +73,20 @@ Steps:
 * Verify integration:
   * Clipboard: copy text in Windows → paste in Ubuntu Terminal. Ctrl+Shift+V or middle-click (paste), Ctrl+Shift+C (copy), or right‑click → Paste.
   * Resize VM window; display should auto-resize.
-* Activate 3D:
+  * If clipboard still doesn’t work after reboot, start helpers:
     ```
-    sudo apt install -y mesa-utils
-    glxinfo | grep -E 'OpenGL renderer|OpenGL version'
+    VBoxClient --clipboard &
+    VBoxClient --draganddrop &
+    VBoxClient --checkhostversion &
+
+    mkdir -p ~/.config/autostart
+    cat > ~/.config/autostart/vboxclient-clipboard.desktop << 'EOF'
+    [Desktop Entry]
+    Type=Application
+    Name=VBoxClient Clipboard
+    Exec=/usr/bin/VBoxClient --clipboard
+    X-GNOME-Autostart-enabled=true
+    EOF
     ```
 
 ### Cloud GPUs (Desktop-gui enabled, VNC Desktop)
@@ -88,18 +112,23 @@ Steps:
 ## Installation
 ### Step 1: Install Dependecies
 ```bash
-sudo apt update && \
-sudo apt upgrade -y && \
+sudo apt update
 sudo apt install -y \
-make git build-essential gcc \
-libssl-dev zlib1g-dev libbz2-dev \
-libreadline-dev libsqlite3-dev curl \
-libncursesw5-dev xz-utils tk-dev \
-libxml2-dev libxmlsec1-dev \
-libffi-dev liblzma-dev zip unzip
+  make build-essential gcc \
+  libssl-dev zlib1g-dev libbz2-dev libreadline-dev \
+  libsqlite3-dev libncursesw5-dev xz-utils tk-dev \
+  libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev \
+  curl git unzip \
+  libxi6 libxrender1 libxtst6 libxrandr2 libglu1-mesa libopenal1
 ```
 
-### Step 2: Install Node.js
+### Step 2: Clone the repo and enter the directory
+```bash
+git clone https://github.com/gensyn-ai/blockassist.git
+cd blockassist
+```
+
+### Step 3: Install Node.js
 ```
 # Verify version
 # Skip the whole step if version 20
@@ -116,36 +145,36 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install -y nodejs
 ```
 
-### Step 3: Clone the repo and enter the directory
+### Step 4: Install Yarn
 ```bash
-git clone https://github.com/gensyn-ai/blockassist.git
-cd blockassist
+curl -o- -L https://yarnpkg.com/install.sh | bash
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 ```
 
-### Step 4: Install Java
+### Step 5: Install Java
 ```bash
 ./setup.sh
 exec $SHELL
 ```
 
-### Step 5: Install `pyenv`
+### Step 6: Install `pyenv`
 ```bash
 curl https://pyenv.run | bash
-
+```
+```bash
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 ```
 
-### Step 6: Install Python 3.10
-
+### Step 7: Install Python
 ```bash
 pyenv install 3.10
 pyenv global 3.10
 ```
 
-### Step 7: Install project dependecies
+### Step 8: Install project dependecies
 ```bash
 pip install --upgrade pip
 pip install -e .
