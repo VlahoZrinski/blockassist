@@ -25,11 +25,11 @@ Steps:
 * Enable virtualization in BIOS if needed
 * Download Ubuntu Desktop 22.04 LTS ISO file
 * Click on **New** to Create new VM in VirtualBox:
-  * Type: Linux, Ubuntu (64-bit)
-  * RAM: 8GB minimum, 16GB recommended
-  * Storage: 50GB minimum
-  * Enable 3D acceleration in Display settings
-  * Allocate multiple CPU cores
+  * Name and Operating system: Choose ISO file
+  * Unattended Instal: Choose a username and password for ubuntu user login
+  * Hardware: 8GB minimum, 16GB recommended for RAM, add multiple CPU cores
+  * Hard Disk: 100GB minimum
+*
 
 ### Cloud GPUs (Desktop-gui enabled, VNC Desktop)
 **Important Note: This method is actually running Minecraft inside a *VNC Desktop* which provides a very slow game. I will update it with better methods very soon**
