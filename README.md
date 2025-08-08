@@ -59,6 +59,11 @@ Steps:
 * Verify integration:
   * Clipboard: copy text in Windows → paste in Ubuntu Terminal. Ctrl+Shift+V or middle-click (paste), Ctrl+Shift+C (copy), or right‑click → Paste.
   * Resize VM window; display should auto-resize.
+* Activate 3D:
+    ```
+    sudo apt install -y mesa-utils
+    glxinfo | grep -E 'OpenGL renderer|OpenGL version'
+    ```
 
 ### Cloud GPUs (Desktop-gui enabled, VNC Desktop)
 **Important Note: This method is actually running Minecraft inside a *VNC Desktop* which provides a very slow game. I will update it with better methods very soon**
