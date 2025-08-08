@@ -23,7 +23,7 @@ Steps:
 * Download Ubuntu Desktop 22.04 LTS ISO file
 * Click on **New** to Create new VM in VirtualBox:
   * Name and Operating system: Choose ISO file
-  * Unattended Instal: Choose a username and password for ubuntu user login
+  * Unattended Instal: Check **Guest Additions** box to enable quality and resolution features, plus Choose a username/password.
   * Hardware: 8GB minimum, 16GB recommended for RAM, add multiple CPU cores
   * Hard Disk: 100GB minimum
 * Make `your-user` an admin (sudo) user
@@ -38,7 +38,6 @@ Steps:
   * Add your user to sudo group and set password (replace your-user):
     ```bash
     adduser your-user sudo
-    passwd your-user
     ```
   * Reboot:
     ```bash
@@ -48,49 +47,22 @@ Steps:
     ```bash
     sudo whoami    # should print: root
     ```
-* Optimize your VM settings:
+* Optimize VM and enable Clipboard:
   * Poweroff the VM and go to Virtualbox app. → Settings
-  * Display → Video Memory: 128 MB (max)
-  * Display → Graphics Controller: VBoxSVGA
-  * Display → Enable 3D Acceleration: OFF (keep OFF until system is stable)
+  * Display → Video Memory
+  * Display → Graphics Controller: VMSVGA
+  * Display → Enable 3D Acceleration: ON (Turn OFF if VM was unstable)
   * General → Advanced → Shared Clipboard: Bidirectional
   * General → Advanced → Drag’n’Drop: Bidirectional
- * Enable Clipboard (install Guest Additions):
+ * Update packages
    * Inside Ubuntu:
     ```
-    sudo apt update
+    sudo apt update && sudo apt upgrade -y
     sudo apt install -y build-essential dkms linux-headers-$(uname -r)
-    ```
-   * VM window top bar → Devices → “Insert Guest Additions CD Image…”
-   * Then run in terminal:
-    ```
-    sudo mkdir -p /mnt/cdrom
-    sudo mount /dev/cdrom /mnt/cdrom
-    cd /mnt/cdrom
-    sudo ./VBoxLinuxAdditions.run
-    sudo reboot
-    ```
-* Verify integration:
-  * Clipboard: copy text in Windows → paste in Ubuntu Terminal. Ctrl+Shift+V or middle-click (paste), Ctrl+Shift+C (copy), or right‑click → Paste.
-  * Resize VM window; display should auto-resize.
-  * If clipboard still doesn’t work after reboot, start helpers:
-    ```
-    VBoxClient --clipboard &
-    VBoxClient --draganddrop &
-    VBoxClient --checkhostversion &
-
-    mkdir -p ~/.config/autostart
-    cat > ~/.config/autostart/vboxclient-clipboard.desktop << 'EOF'
-    [Desktop Entry]
-    Type=Application
-    Name=VBoxClient Clipboard
-    Exec=/usr/bin/VBoxClient --clipboard
-    X-GNOME-Autostart-enabled=true
-    EOF
     ```
 
 ### Cloud GPUs (Desktop-gui enabled, VNC Desktop)
-**Important Note: This method is actually running Minecraft inside a *VNC Desktop* which provides a very slow game. I will update it with better methods very soon**
+**Important Note: This method is actually running Minecraft inside a **VNC Desktop** which provides a very slow game. I will update it with better methods very soon**
 
 **[Vast](https://cloud.vast.ai/?ref_id=62897&creator_id=62897&name=Linux%20Desktop%20Container)**: Rent a GPU with [Linux Desktop Container](https://cloud.vast.ai/?ref_id=62897&creator_id=62897&name=Linux%20Desktop%20Container) template, then go to *instances* page and wait for your gpu to be deployed.
 
@@ -214,7 +186,7 @@ You will be prompted to login via a browser
 ### Play Minecraft
 * Wait until two Minecraft windows have opened
 * Press `ENTER` in terminal.
-* Go to the first Minecraft window, the game will start.
+* Go to the first Minecraft window, the game and the map should start itself, must not create one yourself.
 * **Note for VNC users**: To enable in-game keys, Press `ENTER` inside the game window.
 * Build the building to increase your progress. (More progress = Better trained AI).
   * Left-click pickaxe to remove, Left-click *Dirt* on red tiles, Right-click stone, glasses, plonks on place holders.
@@ -222,7 +194,9 @@ You will be prompted to login via a browser
 
 <img width="1754" height="838" alt="Screenshot_825" src="https://github.com/user-attachments/assets/5acf6764-4040-4615-a5e7-5ea4e0b0fe6c" />
 
-**Note: Even if you don't finish the eposide till the end and close it, you'll earn your participation in the leaderboard**
+**Note 2: Make sure to check [Troubleshooting](#troubleshooting) if you got any error**
+
+**Note 2: Even if you don't finish the eposide till the end and close it, you'll earn your participation in the leaderboard**
 
 ### Training
 A model will be started training now and be submitted to Hugging Face and to Gensyn’s smart contract.
@@ -238,11 +212,6 @@ A successful training logging:
 ### Leaderboard
 Login to [BlockAssist leaderboard](https://dashboard.gensyn.ai) to check your participation points
 
-### Optional: Check logs
-If needed, you can check logs by opening a *new* terminal and running this:
-```bash
-blockassist && tail -f logs/malmo.log
-```
 
 ### Configuration
 You can modify settings in the `src/blockassist/config.yaml` file or override them via command-line arguments.
@@ -254,8 +223,42 @@ You can modify settings in the `src/blockassist/config.yaml` file or override th
 ---
 
 ## Troubleshooting
-**Increase Malmo startup timeout**
+### CUDNN Error
+```
+wget https://developer.download.nvidia.com/compute/cudnn/9.11.0/local_installers/cudnn-local-repo-ubuntu2204-9.11.0_1.0-1_amd64.deb
+sudo dpkg -i cudnn-local-repo-ubuntu2204-9.11.0_1.0-1_amd64.deb
+sudo cp /var/cudnn-local-repo-ubuntu2204-9.11.0/cudnn-local-4EC753EA-keyring.gpg /usr/share/keyrings/
+echo "deb [signed-by=/usr/share/keyrings/cudnn-local-4EC753EA-keyring.gpg] file:///var/cudnn-local-repo-ubuntu2204-9.11.0 /" | sudo tee /etc/apt/sources.list.d/cudnn-local.list
+sudo apt update
+sudo apt install -y libcudnn9 libcudnn9-dev
+```
+
+### Increase Malmo startup timeout
+Needed if you need more timeout delay between the first minecraft window and the second one
 ```
 cd blockassist
 sed -i 's#python -m malmo.minecraft launch#python -m malmo.minecraft launch --timeout 300#' scripts/run_malmo.sh
 ```
+
+### Check logs and debug
+Open a *new* terminal to run these:
+
+* Minecraft logic logs:
+```bash
+cd blockassist
+tail -f logs/malmo.log
+```
+
+* Minecraft maps startup logs:
+```bash
+cd blockassist
+tail -n 200 logs/run.log
+```
+
+* Login page logs:
+```bash
+cd blockassist
+tail -n 200 logs/yarn.log
+```
+
+
