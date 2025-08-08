@@ -6,23 +6,20 @@
 
 </div>
 
-**BlockAssist** is an AI assistant that learns from its user’s actions in Minecraft. The assistant appears in-game with you, starting with only basic knowledge of the game’s commands. As you play, it learns how to assist you in building, learning directly from your actions. It shows an early demo of _assistance learning_ - a new paradigm for aligning agents to human preferences across domains.
+ **BlockAssist** is an AI bot that learns from you in Minecraft. It starts dumb but gets smarter as you play.
 
 Steps:
 1. Follow setup instructions below
-2. Play Minecraft episodes and complete the building goal in the shortest time possible.  This will help train the best assistant models.
-3. Share your progress with the community by posting your gameplay videos, stats, and Hugging Face uploads on Discord and X. Track your participation on the leaderboard.
-
-**You do not need a copy of Minecraft to play! BlockAssist includes a free version.**
-
+2. Play Minecraft episodes. Complete building progress bar.
+3. Track your participation on the leaderboard.
 
 ## Hardware Requirements
-### Local systems
+### Local systems (Recommended, Best game experience)
 **Linux or Mac**: This guide is for **Linux** users, **Mac** users check [official guide](https://github.com/gensyn-ai/blockassist/tree/main) for Mac commands)
 
 **WSL**: NOT supported for now (Will update this for WSL users)
 
-**Install Ubuntu on Windows via VirtualBox**
+**Ubuntu on Windows via VirtualBox**
 * Download VirtualBox from Oracle website
 * Install VirtualBox on Windows
 * Enable virtualization in BIOS if needed
@@ -34,7 +31,9 @@ Steps:
   * Enable 3D acceleration in Display settings
   * Allocate multiple CPU cores
 
-### Cloud GPUs (Desktop-gui enabled)
+### Cloud GPUs (Desktop-gui enabled, VNC Desktop)
+**Important Note: This method is actually running Minecraft inside a *VNC Desktop* which provides a very slow game. I will update it with better methods very soon**
+
 **[Vast](https://cloud.vast.ai/?ref_id=62897&creator_id=62897&name=Linux%20Desktop%20Container)**: Rent a GPU with [Linux Desktop Container](https://cloud.vast.ai/?ref_id=62897&creator_id=62897&name=Linux%20Desktop%20Container) template, then go to *instances* page and wait for your gpu to be deployed.
 
 **To open your gpu desktop, you have two options:**
@@ -66,19 +65,36 @@ libxml2-dev libxmlsec1-dev \
 libffi-dev liblzma-dev zip unzip
 ```
 
-### Step 2: Clone the repo and enter the directory
+### Step 2: Install Node.js
+```
+# Verify version
+# Skip the whole step if version 20
+node --version
+npm --version
+
+# Remove existing Node.js
+sudo apt remove -y nodejs npm
+
+# Install NodeSource repository for Node.js 20
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+
+# Install Node.js 20
+sudo apt install -y nodejs
+```
+
+### Step 3: Clone the repo and enter the directory
 ```bash
 git clone https://github.com/gensyn-ai/blockassist.git
 cd blockassist
 ```
 
-### Step 3: Install Java
+### Step 4: Install Java
 ```bash
 ./setup.sh
 exec $SHELL
 ```
 
-### Step 4: Install `pyenv`
+### Step 5: Install `pyenv`
 ```bash
 curl https://pyenv.run | bash
 
@@ -88,21 +104,18 @@ eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 ```
 
-### Step 5: Install Python 3.10
+### Step 6: Install Python 3.10
 
 ```bash
 pyenv install 3.10
 pyenv global 3.10
 ```
 
-### Step 6: Install project dependecies
+### Step 7: Install project dependecies
 ```bash
 pip install --upgrade pip
 pip install -e .
 pip install psutil readchar
-
-corepack enable
-yarn install --frozen-lockfile
 ```
 
 ---
@@ -138,10 +151,12 @@ You will be prompted to login via a browser
 * Go to the first Minecraft window, the game will start.
 * **Note for VNC users**: To enable in-game keys, Press `ENTER` inside the game window.
 * Build the building to increase your progress. (More progress = Better trained AI).
+  * Left-click pickaxe to remove, Left-click *Dirt* on red tiles, Right-click stone, glasses, plonks on place holders.
 * Then return to your terminal and press `ENTER` to end the session.
 
 <img width="1754" height="838" alt="Screenshot_825" src="https://github.com/user-attachments/assets/5acf6764-4040-4615-a5e7-5ea4e0b0fe6c" />
 
+**Note: Even if you don't finish the eposide till the end and close it, you'll earn your participation in the leaderboard**
 
 ### Training
 A model will be started training now and be submitted to Hugging Face and to Gensyn’s smart contract.
@@ -170,6 +185,11 @@ You can modify settings in the `src/blockassist/config.yaml` file or override th
 
 - `num_training_iters` — Controls the number of training iterations across all recorded episodes.
 
+---
 
-
-
+## Troubleshooting
+**Increase Malmo startup timeout**
+```
+cd blockassist
+sed -i 's#python -m malmo.minecraft launch#python -m malmo.minecraft launch --timeout 300#' scripts/run_malmo.sh
+```
