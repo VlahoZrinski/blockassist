@@ -1,4 +1,4 @@
-# Ubuntu on Windows via VirtualBox — BlockAssist Setup
+ — BlockAssist Setup
 
 This guide walks you through running BlockAssist on Windows using an Ubuntu 22.04 virtual machine in Oracle VirtualBox. Use this when WSL is not supported.
 
