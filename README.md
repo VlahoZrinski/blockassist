@@ -68,7 +68,7 @@ Steps:
 **To open your gpu desktop, you have two options:**
 * Vast preserved desktops (Recommended):
   * Click on **Open** (Blue button) to head to the gpu dashboard
-  * Access to the desktop via **Selkies Low Latency Desktop** or **Apache Guacamole Desktop (VNC)**
+  * Access to the desktop via **Selkies Low Latency Desktop**(Most performant) or **Apache Guacamole Desktop (Low performance)**
 
 * Local VNC client:
   * Click on **Open** (Blue button) to head to the gpu dashboard
