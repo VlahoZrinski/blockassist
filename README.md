@@ -11,56 +11,17 @@ Steps:
 3. Track your participation on the leaderboard.
 
 ## Hardware Requirements
-### Local systems (Recommended, Best game experience)
+* 8 GB RAM minimum (16 GB recommended)
+* Multi‑core CPU
+* 100 GB disk space
+
+## Enviorement
+### Local systems (Recommended, best game experience)
 **Linux or Mac**: This guide is for **Linux** users, **Mac** users check [official guide](https://github.com/gensyn-ai/blockassist/tree/main) for Mac commands)
 
 **WSL**: NOT supported for now (Will update this for WSL users)
 
-**Ubuntu on Windows via VirtualBox**
-* Download VirtualBox from Oracle website
-* Install VirtualBox on Windows
-* Enable virtualization in BIOS if needed
-* Download Ubuntu Desktop 22.04 LTS ISO file
-* Click on **New** to Create new VM in VirtualBox:
-  * Name and Operating system: Choose ISO file
-  * Unattended Instal: Check **Guest Additions** box to enable quality and resolution features, plus Choose a username/password.
-  * Hardware: 8GB minimum, 16GB recommended for RAM, add multiple CPU cores
-  * Hard Disk: 100GB minimum
-* Make `your-user` an admin (sudo) user
-  * Power off the VM
-  * Start the VM and hold Right-Shift (or press Esc repeatedly) to show GRUB.
-  * Select “Advanced options for Ubuntu” → choose the entry with “(recovery mode)”.
-  * In the Recovery Menu, choose “root – Drop to root shell”. → Insert a password if prompted.
-  * Remount root as read-write:
-    ```bash
-    mount -o remount,rw /
-    ```
-  * Add your user to sudo group and set password (replace your-user):
-    ```bash
-    adduser your-user sudo
-    ```
-  * Reboot:
-    ```bash
-    reboot
-    ```
-  * Log back in as `your-user`, then verify sudo works:
-    ```bash
-    sudo whoami    # should print: root
-    ```
-* Optimize VM and enable Clipboard:
-  * Poweroff the VM and go to Virtualbox app. → Settings
-  * Display → Video Memory 128MB
-  * Display → Graphics Controller: VMSVGA
-  * Display → Enable 3D Acceleration: ON (Turn OFF if VM was unstable)
-  * General → Advanced → Shared Clipboard: Bidirectional
-  * General → Advanced → Drag’n’Drop: Bidirectional
- * Update packages
-   * Inside Ubuntu:
-    ```
-    sudo apt update && sudo apt upgrade -y
-    sudo apt-get install -y virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11 || true
-    sudo apt-get install -y build-essential dkms linux-headers-$(uname -r)
-    ```
+**Ubuntu on Windows via VirtualBox**: Detailed guide to setup [Ubuntu on Windows via VirtualBox](./ubuntu-virtualbox.md)
 
 ### Cloud GPUs (Desktop-gui enabled, VNC Desktop)
 **Important Note: This method is actually running Minecraft inside a **VNC Desktop** which provides a slow game, but a more straight forward installation. I will update the guide with better solutions very soon**
