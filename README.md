@@ -61,9 +61,9 @@ Steps:
     ```
 
 ### Cloud GPUs (Desktop-gui enabled, VNC Desktop)
-**Important Note: This method is actually running Minecraft inside a **VNC Desktop** which provides a very slow game. I will update it with better methods very soon**
+**Important Note: This method is actually running Minecraft inside a **VNC Desktop** which provides a slow game, but a more straight forward installation. I will update the guide with better solutions very soon**
 
-**Vast**: Rent a GPU with my custom [Moei Linux Desktop Container](https://cloud.vast.ai/?ref_id=228875&creator_id=228875&name=Moei%20Linux%20Desktop%20Container) template, then go to *instances* page and wait for your gpu to be deployed.
+**Vast Linux Desktop Template**: Rent a GPU with my custom [Moei Linux Desktop Container](https://cloud.vast.ai/?ref_id=228875&creator_id=228875&name=Moei%20Linux%20Desktop%20Container) template, then go to *instances* page and wait for your gpu to be deployed.
 
 **To open your gpu desktop, you have two options:**
 * Vast preserved desktops (Recommended):
