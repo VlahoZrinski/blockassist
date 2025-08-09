@@ -27,7 +27,7 @@ This guide walks you through running BlockAssist on Windows using an Ubuntu 22.0
    - Create a virtual hard disk now → VDI → Dynamically allocated → Size: 100 GB
 6. Create VM, then open Settings before first boot:
    - Display → Video Memory: 128 MB (max)
-   - Display → Graphics Controller: VBoxSVGA
+   - Display → Graphics Controller: VMSVGA
    - Display → Enable 3D Acceleration: ON (keep OFF if VM is unstable)
    - General → Advanced → Shared Clipboard: Bidirectional
    - General → Advanced → Drag’n’Drop: Bidirectional
