@@ -29,11 +29,12 @@ Steps:
 **Vast Linux Desktop Template**: Rent a GPU with my custom [Moei Linux Desktop Container](https://cloud.vast.ai/?ref_id=228875&creator_id=228875&name=Moei%20Linux%20Desktop%20Container) template, then go to *instances* page and wait for your gpu to be deployed.
 
 **To open your gpu desktop, you have two options:**
-* Vast preserved desktops (Recommended):
-  * Click on **Open** (Blue button) to head to the gpu dashboard
-  * Access to the desktop via **Selkies Low Latency Desktop**(Most performant) or **Apache Guacamole Desktop (Low performance)**
+1. Vast preserved desktops (Recommended):
+Click on **Open** (Blue button) to head to the gpu dashboard, and Access to the desktop via:
+- Selkies Low Latency Desktop**(Recommended, most performant)
+- **Apache Guacamole Desktop (Low performance)**
 
-* Local VNC client:
+3. Local VNC client:
   * Click on **Open** (Blue button) to head to the gpu dashboard
   * Access to the terminal via **Jupyter Terminal**
   * Find your Dekstop password by executing: `echo $OPEN_BUTTON_TOKEN`
