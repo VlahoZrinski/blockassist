@@ -193,9 +193,9 @@ You will be prompted to login via a browser
 
 <img width="1754" height="838" alt="Screenshot_825" src="https://github.com/user-attachments/assets/5acf6764-4040-4615-a5e7-5ea4e0b0fe6c" />
 
-**Note 2: Make sure to check [Troubleshooting](#troubleshooting) if you got any error**
+**Note: Make sure to check [Troubleshooting](#troubleshooting) if you got any error**
 
-**Note 2: Even if you don't finish the eposide till the end and close it, you'll earn your participation in the leaderboard**
+**Note #2: Even if you don't finish the eposide till the end and close it, you'll earn your participation in the leaderboard**
 
 ### Training
 A model will be started training now and be submitted to Hugging Face and to Gensyn’s smart contract.
