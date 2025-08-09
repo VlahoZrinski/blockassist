@@ -2,7 +2,6 @@
 
 <img width="680" height="333" alt="image" src="https://github.com/user-attachments/assets/7f42b743-9bcd-4e75-9f09-c81af474bd10" />
 
-
  **BlockAssist** is an AI bot that learns from you in Minecraft. It starts dumb but gets smarter as you play.
 
 Steps:
@@ -10,12 +9,16 @@ Steps:
 2. Play Minecraft episodes. Complete building progress bar.
 3. Track your participation on the leaderboard.
 
-## Hardware Requirements
+---
+
+## ➡️ Hardware Requirements
 * 8 GB RAM minimum (16 GB recommended)
 * Multi‑core CPU
 * 100 GB disk space
 
-## Enviorement
+---
+
+## ➡️ Enviorement
 ### Local systems (Recommended, best game experience)
 **Linux or Mac**: This guide is for **Linux** users, **Mac** users check [official guide](https://github.com/gensyn-ai/blockassist/tree/main) for Mac commands)
 
@@ -24,27 +27,33 @@ Steps:
 **Ubuntu on Windows via VirtualBox**: Detailed guide to setup [Ubuntu on Windows via VirtualBox](./ubuntu-virtualbox.md)
 
 ### Cloud GPUs (Desktop-gui enabled, VNC Desktop)
-**Important Note: This method is actually running Minecraft inside a **VNC Desktop** which provides a slow game, but a more straight forward installation. I will update the guide with better solutions very soon**
+This method is running Minecraft inside a **VNC Desktop** which provides a slow game, but it's a straight-forward installation. I will update the guide with better solutions too.
 
-**Vast Linux Desktop Template**: Rent a GPU with my custom [Moei Linux Desktop Container](https://cloud.vast.ai/?ref_id=228875&creator_id=228875&name=Moei%20Linux%20Desktop%20Container) template, then go to *instances* page and wait for your gpu to be deployed.
+**Vast Linux Desktop Template**: Rent a GPU with my custom [Moei Linux Desktop Container](https://cloud.vast.ai/?ref_id=228875&creator_id=228875&name=Moei%20Linux%20Desktop%20Container) template (nvh264enc video encoder), then go to *instances* page and wait for your gpu to be deployed.
 
-**To open your gpu desktop, you have two options:**
+To open your gpu desktop, you have two options:
+
 1. Vast preserved desktops (Recommended):
-Click on **Open** (Blue button) to head to the gpu dashboard, and Access to the desktop via:
-- Selkies Low Latency Desktop**(Recommended, most performant)
-- **Apache Guacamole Desktop (Low performance)**
+* Click on **Open** (Blue button) to head to the gpu dashboard, and Access to the desktop via:
+  * **Selkies Low Latency Desktop (Recommended, most performant)**. Lower the video bitrate if you have low-bandwidth > By clicking the small circle in the right side of the desktop.
+  * Apache Guacamole Desktop (Low performance)
 
-3. Local VNC client:
+2. Local VNC client (Low performance, complex):
   * Click on **Open** (Blue button) to head to the gpu dashboard
   * Access to the terminal via **Jupyter Terminal**
   * Find your Dekstop password by executing: `echo $OPEN_BUTTON_TOKEN`
   * In instances page, click on gpu IP and find the mapped host:port to `5900/tcp`, for example it can be: `70.45.225.15:18483`
   * Install [RealVNC](https://www.realvnc.com/en/connect/download/viewer/)
   * Enter the mapped host:port and then it prompts for the password to access to your desktop.
-  * To install a Chrome browser on it, visit [VNC (Linux desktop)](https://github.com/0xmoei/Install-VNC-Linux-Desktop/) Full Guide  
+  * To install a Chrome browser on it, visit [VNC (Linux desktop)](https://github.com/0xmoei/Install-VNC-Linux-Desktop/) Full Guide
 
+# 
 
-## Installation
+**Note: The installation is very experimental and it's a little complicated for non-local linux and mac users. The team also Introduced [Sunshine + Moonlight for Remote Linux](https://docs.gensyn.ai/testnet/blockassist/running-blockassist-on-a-remote-linux-desktop) method that the training runs on VPS and the game runs on your local PC, but it's also challanging. Try it out only if you know what you are doing.**
+
+---
+
+## ➡️ Installation
 ### Step 1: Install Dependecies
 ```bash
 sudo apt update
@@ -121,7 +130,7 @@ pip install psutil readchar
 
 ---
 
-## Run BlockAssist
+## ➡️ Run BlockAssist
 
 ### Start Mincraft
 ```bash
@@ -186,7 +195,7 @@ You can modify settings in the `src/blockassist/config.yaml` file or override th
 
 ---
 
-## Troubleshooting
+## ➡️ Troubleshooting
 ### CUDNN Error
 ```
 wget https://developer.download.nvidia.com/compute/cudnn/9.11.0/local_installers/cudnn-local-repo-ubuntu2204-9.11.0_1.0-1_amd64.deb
@@ -225,4 +234,9 @@ cd blockassist
 tail -n 200 logs/yarn.log
 ```
 
+
+## Get Block Discord Role
+Visit [massage url](https://discord.com/channels/852932483691577395/1397909075685146804/1403436609583579146) and follow instructions 
+
+<img width="1100" height="532" alt="Screenshot_833" src="https://github.com/user-attachments/assets/c01ef1a1-1f64-4352-ba7a-e51287cb02e8" />
 
