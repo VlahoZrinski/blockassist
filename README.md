@@ -58,6 +58,8 @@ Steps:
    * Inside Ubuntu:
     ```
     sudo apt update && sudo apt upgrade -y
+    sudo apt-get install -y virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11 || true
+    sudo apt-get install -y build-essential dkms linux-headers-$(uname -r)
     ```
 
 ### Cloud GPUs (Desktop-gui enabled, VNC Desktop)
@@ -187,6 +189,7 @@ You will be prompted to login via a browser
 * Press `ENTER` in terminal.
 * Go to the first Minecraft window, the game and the map should start itself, must not create one yourself.
 * **Note for VNC users**: To enable in-game keys, Press `ENTER` inside the game window.
+* **Note for VirtualBOX users**: To enable in-vm mouse movement, VM window > Input > Mouse Integration, then toggle off/on with `right-ctrl`
 * Build the building to increase your progress. (More progress = Better trained AI).
   * Left-click pickaxe to remove, Left-click *Dirt* on red tiles, Right-click stone, glasses, plonks on place holders.
 * Then return to your terminal and press `ENTER` to end the session.
