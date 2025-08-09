@@ -55,7 +55,7 @@ reboot
 ---
 
 ## Install VirtualBox Guest Additions
-In some cases you might get into trouble with displays and clipboard functionality, you can install Guest Additions manually:
+If you ever got into trouble with displays and clipboard functionality, you can install Guest Additions manually:
 
 ### 1) VirtualBox
 Inside Ubuntu:
