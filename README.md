@@ -27,7 +27,7 @@ Steps:
 → **Ubuntu on Windows via VirtualBox**: Detailed guide to setup [Ubuntu on Windows via VirtualBox](./ubuntu-virtualbox.md)
 
 ### Cloud GPUs (Desktop-gui enabled, VNC Desktop)
-This method is running Minecraft inside a **VNC Desktop** which provides a slow game, but it's a straight-forward installation. I will update the guide with better solutions too.
+This method is running Minecraft inside a **VNC Desktop** which provides a slow game, but it's a straight-forward installation.
 
 → **Vast Linux Desktop Template**: Rent a GPU with my custom [Moei Linux Desktop Container](https://cloud.vast.ai/?ref_id=228875&creator_id=228875&name=Moei%20Linux%20Desktop%20Container) template (nvh264enc video encoder), then go to *instances* page and wait for your gpu to be deployed.
 
