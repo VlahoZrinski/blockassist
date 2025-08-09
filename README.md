@@ -49,7 +49,7 @@ Steps:
     ```
 * Optimize VM and enable Clipboard:
   * Poweroff the VM and go to Virtualbox app. → Settings
-  * Display → Video Memory
+  * Display → Video Memory 128MB
   * Display → Graphics Controller: VMSVGA
   * Display → Enable 3D Acceleration: ON (Turn OFF if VM was unstable)
   * General → Advanced → Shared Clipboard: Bidirectional
