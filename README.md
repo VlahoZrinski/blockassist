@@ -22,9 +22,79 @@ Steps:
 ### Local systems (Recommended, best game experience)
 → **Linux or Mac**: This guide is for **Linux** users, **Mac** users check [official guide](https://github.com/gensyn-ai/blockassist/tree/main) for Mac commands)
 
-→ **WSL**: NOT supported for now (Will update this for WSL users)
+→ **WSL** (Windows Subsystem for Linux — Light):
+- Recommended if you are on Windows and want to run everything inside Ubuntu on WSL.
+- Choose ONE of the two display options below. If you are on Windows 11, prefer WSLg.
+- If you run into issues, see [WSL: Common issues and fixes](#wsl-common-issues-and-fixes).
 
-→ **Ubuntu on Windows via VirtualBox**: Detailed guide to setup [Ubuntu on Windows via VirtualBox](./ubuntu-virtualbox.md)
+1) WSLg (Windows 11, easiest — no external X server):
+- In Windows PowerShell (Admin):
+```powershell
+wsl --update
+wsl --shutdown
+```
+- In WSL Ubuntu, ensure no manual DISPLAY overrides exist:
+```bash
+# Remove old DISPLAY-related lines
+sed -i '/export DISPLAY=/d' ~/.bashrc
+sed -i '/LIBGL_ALWAYS_INDIRECT/d' ~/.bashrc
+sed -i '/WAYLAND_DISPLAY/d' ~/.bashrc
+```
+- Install test tools:
+```bash
+sudo apt update && sudo apt install -y x11-apps mesa-utils
+```
+- Verify GUI apps open
+```
+xeyes  # a small test window should appear
+```
+- Note: With WSLg you typically do NOT set DISPLAY manually. If you previously added it, remove it as shown above.
+- If `xeyes` does not open on Windows 11 (WSLg may be unavailable/disabled), install and run an external X server like MobaXterm or VcXsrv (the guide to configure is in next step) and keep it open while running GUI tests and BlockAssist. Then retry `xeyes`.
+
+2) External X server (Windows 10 or if you prefer):
+- Option A: MobaXterm (full-featured client)
+  - Settings > Configuration > X11
+    - X11 server display = Multiwindow mode
+    - OpenGL = Hardware
+    - X11 remote access = Full
+    - Clipboard = Enabled
+    - Display offset = 0
+  - Ensure the X server button (top-right) is colored (running)
+- Option B: VcXsrv
+  - Install from `https://sourceforge.net/projects/vcxsrv/`
+  - Launch XLaunch with:
+    - Multiple windows, Display number: 0
+    - Start no client
+    - Extra settings: check “Disable access control”
+
+- In WSL Ubuntu, install test tools:
+```bash
+sudo apt update && sudo apt install -y x11-apps mesa-utils
+```
+- Clean up any old DISPLAY settings and set DISPLAY to the Windows host IP (required for X server):
+```bash
+# Remove old lines first so you do not end up with duplicates
+sed -i '/export DISPLAY=/d' ~/.bashrc
+sed -i '/LIBGL_ALWAYS_INDIRECT/d' ~/.bashrc
+
+# Set DISPLAY to WSL2 default gateway (Windows host) and optionally indirect GL
+echo 'export DISPLAY=$(ip route show default | awk '\''/default/ {print $3}'\''):0.0' >> ~/.bashrc
+# Optional: helps on some systems with OpenGL issues; try removing if performance suffers
+echo 'export LIBGL_ALWAYS_INDIRECT=1' >> ~/.bashrc
+
+# Load the changes
+. ~/.bashrc
+```
+- Test your X server from WSL:
+```bash
+xeyes
+```
+  - If the eye window appears, your X server and DISPLAY are working. Close it with Ctrl + C in the terminal.
+
+echo 'export DISPLAY=$(ip route show default | awk '\''/default/ {print $3}'\''):0.0' >> ~/.bashrc
+
+
+→ **Ubuntu on Windows via VirtualBox**(Heavy): Detailed guide to setup [Ubuntu on Windows via VirtualBox](./ubuntu-virtualbox.md)
 
 ### Cloud GPUs (Desktop-gui enabled, VNC Desktop)
 This method is running Minecraft inside a **VNC Desktop** which provides a slow game, but it's a straight-forward installation.
@@ -233,6 +303,45 @@ tail -n 200 logs/run.log
 cd blockassist
 tail -n 200 logs/yarn.log
 ```
+
+### WSL: Common issues and fixes
+- "Error: cannot open display":
+  - Ensure your X server is running on Windows (MobaXterm X server button is colored, or VcXsrv XLaunch window was started and is in the system tray)
+  - In WSL, verify DISPLAY and connectivity:
+```bash
+echo $DISPLAY
+# For external X servers, the host should be your Windows IP (e.g. 172.22.224.1:0.0)
+ping -c1 "${DISPLAY%:*}" || true
+```
+  - For WSLg (Windows 11): remove manual DISPLAY lines from `~/.bashrc` and try again (WSLg sets DISPLAY automatically)
+
+- Black/blank Minecraft or GLX errors:
+  - For VcXsrv, relaunch with “Disable Native OpenGL”; keep “Disable access control” enabled
+  - In WSL Ubuntu, try:
+```bash
+export LIBGL_ALWAYS_INDIRECT=1
+```
+  - If performance is very slow with the above, remove it and retry under WSLg if possible
+
+- `java.awt.HeadlessException` or AWT errors:
+  - Ensure a GUI is available and `xeyes` works before starting BlockAssist
+  - Confirm DISPLAY is set (for external X) and X server is running
+
+- When running `run.py` on WSL, if Minecraft is stuck at "building" and Malmo logs show only one line:
+```text
+Starting a new Gradle Daemon for this build (subsequent builds will be faster).
+```
+  - Open a new terminal and check: `cd blockassist && tail -f logs/malmo.log`
+  - If you only see the line above and nothing else, the X server is not connected; fix your X setup:
+    - For WSLg: remove manual DISPLAY overrides and retry
+    - For external X: start MobaXterm/VcXsrv, ensure DISPLAY points to Windows host, verify `xeyes` opens
+
+- Input not captured inside Minecraft:
+  - Click the game window and press ENTER once to focus the window (see Run section notes)
+
+- Corporate VPN/Firewall blocking X traffic:
+  - Use WSLg (Windows 11) instead of external X; or temporarily allow VcXsrv through Windows Firewall
+
 
 
 ## Get Block Discord Role
